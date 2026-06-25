@@ -1,6 +1,6 @@
 # Script: obtener compañías telefónicas
 
-Este script consulta el portal de CRT, extrae compañías y URLs de consulta, y guarda el resultado en `companies.json`.
+Este script consulta el portal de CRT, extrae compañías y URLs de consulta, agrupa compañías por URL y guarda el resultado en `companies.json`.
 
 ## Requisitos
 
@@ -52,17 +52,17 @@ Al terminar, el script crea o sobrescribe el archivo `companies.json` con este f
 ```json
 {
   "version": 1710000000,
-  "companies": [
-    {
-      "name": "Nombre de compañía",
-      "url": "https://ejemplo.com"
-    }
-  ]
+  "companies": {
+    "https://ejemplo.com": [
+      "Compañía A",
+      "Compañía B"
+    ]
+  }
 }
 ```
 
 - `version`: timestamp Unix del momento de ejecución.
-- `companies`: lista de compañías extraídas del sitio.
+- `companies`: objeto donde cada clave es una URL y su valor es la lista de compañías que usan esa URL.
 
 ## Configuración
 
