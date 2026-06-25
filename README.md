@@ -1,55 +1,78 @@
 # Script: obtener companias telefonicas
 
-Este script consulta el portal de CRT y muestra en consola nombres de companias y sus URLs.
+Este script consulta el portal de CRT, extrae companias y URLs de consulta, y guarda el resultado en `companies.json`.
 
-## Requisitos previos
+## Requisitos
 
 - Python 3.10 o superior
 - `pip` habilitado
-- Conexion a internet (el script consume una URL publica)
+- Conexion a internet
+
+## Dependencias
+
+Las dependencias del proyecto estan en `requirements.txt`:
+
+- `beautifulsoup4==4.15.0`
+- `requests==2.34.2`
 
 ## Instalacion
 
-1. (Opcional, recomendado) Crear y activar entorno virtual:
+1. (Opcional, recomendado) Crear y activar un entorno virtual.
 
 ### macOS / Linux
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 ### Windows (PowerShell)
+
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
 2. Instalar dependencias:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-## Ejecutar el script
+## Ejecutar
 
 ```bash
 python app.py
 ```
 
-## Salida esperada
+## Resultado
 
-Veras mensajes como:
-- `:::::Iniciando proceso:::::`
-- `Datos obtenidos:`
-- lineas con `nombre url`
-- `:::::Proceso finalizado:::::`
+Al terminar, el script crea o sobrescribe el archivo `companies.json` con este formato:
+
+```json
+{
+  "version": 1710000000,
+  "companies": [
+    {
+      "name": "Nombre de compania",
+      "url": "https://ejemplo.com"
+    }
+  ]
+}
+```
+
+- `version`: timestamp Unix del momento de ejecucion.
+- `companies`: lista de companias extraidas del sitio.
+
+## Configuracion
+
+En `constants.py` puedes ajustar:
+
+- `URL`: sitio fuente a consultar.
+- `fileJson`: nombre/ruta del archivo de salida JSON.
 
 ## Solucion de problemas
 
 - **`ModuleNotFoundError`**: ejecuta `pip install -r requirements.txt` en el entorno activo.
-- **No imprime resultados**: el HTML del sitio puede haber cambiado; valida `class_='operators-list'` en `app.py`.
-- **Error HTTP**: revisa conexion a internet y disponibilidad del portal en la URL de `constants.py`.
-
-## Notas
-
-- La URL origen esta definida en `constants.py`.
-- Si la estructura HTML del sitio cambia, puede fallar el parseo con BeautifulSoup.
+- **Error HTTP**: revisa tu conexion y disponibilidad de la URL configurada.
+- **JSON vacio o incompleto**: la estructura HTML del sitio pudo cambiar (selector `operators-list` en `app.py`).
