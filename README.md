@@ -1,21 +1,21 @@
-# Script: obtener companias telefonicas
+# Script: obtener compañías telefónicas
 
-Este script consulta el portal de CRT, extrae companias y URLs de consulta, y guarda el resultado en `companies.json`.
+Este script consulta el portal de CRT, extrae compañías y URLs de consulta, y guarda el resultado en `companies.json`.
 
 ## Requisitos
 
 - Python 3.10 o superior
 - `pip` habilitado
-- Conexion a internet
+- Conexión a internet
 
 ## Dependencias
 
-Las dependencias del proyecto estan en `requirements.txt`:
+Las dependencias del proyecto están en `requirements.txt`:
 
 - `beautifulsoup4==4.15.0`
 - `requests==2.34.2`
 
-## Instalacion
+## Instalación
 
 1. (Opcional, recomendado) Crear y activar un entorno virtual.
 
@@ -54,25 +54,25 @@ Al terminar, el script crea o sobrescribe el archivo `companies.json` con este f
   "version": 1710000000,
   "companies": [
     {
-      "name": "Nombre de compania",
+      "name": "Nombre de compañía",
       "url": "https://ejemplo.com"
     }
   ]
 }
 ```
 
-- `version`: timestamp Unix del momento de ejecucion.
-- `companies`: lista de companias extraidas del sitio.
+- `version`: timestamp Unix del momento de ejecución.
+- `companies`: lista de compañías extraídas del sitio.
 
-## Configuracion
+## Configuración
 
 En `constants.py` puedes ajustar:
 
 - `URL`: sitio fuente a consultar.
 - `fileJson`: nombre/ruta del archivo de salida JSON.
 
-## Solucion de problemas
+## Solución de problemas
 
 - **`ModuleNotFoundError`**: ejecuta `pip install -r requirements.txt` en el entorno activo.
-- **Error HTTP**: revisa tu conexion y disponibilidad de la URL configurada.
-- **JSON vacio o incompleto**: la estructura HTML del sitio pudo cambiar (selector `operators-list` en `app.py`).
+- **Error HTTP**: revisa tu conexión y disponibilidad de la URL configurada.
+- **JSON vacío o incompleto**: la estructura HTML del sitio pudo cambiar (selector `operators-list` en `app.py`).
