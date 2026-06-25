@@ -7,7 +7,7 @@ import json
 print(":::::Iniciando proceso:::::")
 
 response = requests.get(URL)
-allCompanies = []
+resources = dict()
 
 if response.status_code == 200:
   ## exito
@@ -22,16 +22,25 @@ if response.status_code == 200:
       for e in els:
         url = e.get('href')
         name = e.text
-        allCompanies.append(dict(name=name, url=url))
+        if url in resources:
+          c = resources[url]
+          c.append(name)
+          resources[url] = c
+        else:
+          resources[url] = [name]
     else:
-      a = el.find('a')
-      url = a.get('href')
-      allCompanies.append(dict(name=name, url=url))
+      url = el.find('a').get('href')
+      if url in resources:
+        c = resources[url]
+        c.append(name)
+        resources[url] = c
+      else:
+        resources[url] = [name]
 else:
   ## error
   print("Error:", response.status_code)
 
-data = json.dumps(dict(version=int(time.time()), companies=allCompanies))
+data = json.dumps(dict(version=int(time.time()), companies=resources))
 
 ## CREAR ARCHIVO JSON ##
 with open(fileJson, "w") as archivo:
