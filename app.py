@@ -1,7 +1,8 @@
 import requests
-from constants import URL
+from constants import URL, fileJson
 from bs4 import BeautifulSoup
 import time
+import json
 
 print(":::::Iniciando proceso:::::")
 
@@ -30,7 +31,10 @@ else:
   ## error
   print("Error:", response.status_code)
 
-data = dict(version=int(time.time()), companies=allCompanies)
-print("data", data)
+data = json.dumps(dict(version=int(time.time()), companies=allCompanies))
+
+## CREAR ARCHIVO JSON ##
+with open(fileJson, "w") as archivo:
+    archivo.write(data)
 
 print(":::::Proceso finalizado:::::")
